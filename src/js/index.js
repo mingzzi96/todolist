@@ -1,2 +1,4 @@
 import "../scss/style.scss";
-console.log("todo list")
+let a = 2;
+let b = 5;
+console.log(a+b);

@@ -3,13 +3,19 @@
   "version": "1.0.0",
   "description": "ToDo List 만들기",
   "main": "index.js",
+  "module": true,
   "scripts": {
-    "start": "rollup -c rollup.dev.config.js -w"
+    "start": "rollup -c rollup.dev.config.js -w",
+    "build": "rollup -c rollup.prod.config.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "eslint": "^8.48.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "prettier": "3.0.3",
     "rollup": "^2.66.1",
     "rollup-plugin-generate-html-template": "^1.7.0",
     "rollup-plugin-livereload": "^2.0.5",
