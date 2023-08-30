@@ -46,6 +46,48 @@ class TodoList {
 
     addEvent() {
         this.addBtnEl.addEventListener("click", this.onClickAddBtn.bind(this));
+        this.todoListEl.addEventListener(
+            "click",
+            this.onClickTodoList.bind(this)
+        );
+    }
+
+    onClickTodoList(event) {
+        const { target } = event;
+        // 다른 버튼과 그 하위에 svg와 겹치지 않게 하기 위해서 클릭한 target과 가장 가까운 button을 찾아 btn으로 저장
+        // 만약 svg가 클릭되어도 svg 상위 가장 가까운 button 태그가 방금 클릭한 btn으로써 저장되는 것임
+        const btn = target.closest("button");
+        if (!btn) return;
+        if (btn.matches("#delete-btn")) {
+            this.deleteTodo(target);
+        } else if (btn.matches("#edit-btn")) {
+            this.editTodo(target);
+        } else if (btn.matches("#save-btn")) {
+            this.saveTodo(target);
+        }
+    }
+
+    saveTodo(target) {
+        const todoDiv = target.closest(".todo");
+        todoDiv.classList.remove("edit");
+        const todoInputEl = todoDiv.querySelector("input");
+        todoInputEl.readOnly = true;
+    }
+
+    editTodo(target) {
+        const todoDiv = target.closest(".todo");
+        const todoInputEl = todoDiv.querySelector("input");
+        todoInputEl.readOnly = false;
+        todoInputEl.focus();
+        todoDiv.classList.add("edit");
+    }
+
+    deleteTodo(target) {
+        const todoDiv = target.closest(".todo ");
+        todoDiv.addEventListener("transitionend", () => {
+            todoDiv.remove();
+        });
+        todoDiv.classList.add("delete");
     }
 
     onClickAddBtn() {
