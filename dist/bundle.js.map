@@ -1,1 +1,1 @@
-{"version":3,"file":"bundle.js","sources":["../src/js/index.js"],"sourcesContent":["import \"../scss/style.scss\";\nlet a = 2;\nlet b = 5;\nconsole.log(a+b);"],"names":["console","log","a"],"mappings":"4QAGAA,QAAQC,IAAIC"}
+{"version":3,"file":"bundle.js","sources":["../src/js/index.js"],"sourcesContent":["import \"../scss/style.scss\";\nlet a = 2;\nlet b = 5;\nconsole.log(a+b);"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;AACA,IAAI,CAAC,GAAG,CAAC,CAAC;AACV,IAAI,CAAC,GAAG,CAAC,CAAC;AACV,OAAO,CAAC,GAAG,CAAC,CAAC,CAAC,CAAC,CAAC;;"}
