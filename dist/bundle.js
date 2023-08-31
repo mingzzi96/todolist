@@ -64,7 +64,14 @@ class TodoList {
             this.editTodo(target);
         } else if (btn.matches("#save-btn")) {
             this.saveTodo(target);
+        } else if (btn.matches("#complete-btn")) {
+            this.completeTodo(target);
         }
+    }
+
+    completeTodo(target) {
+        const todoDiv = target.closest(".todo");
+        todoDiv.classList.toggle("done");
     }
 
     saveTodo(target) {
