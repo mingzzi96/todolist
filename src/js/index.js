@@ -1,6 +1,49 @@
 import "@fortawesome/fontawesome-free/js/all.min.js";
 import "../scss/style.scss";
 
+class Router {
+    // router들을 담을 클래스 변수 생성
+    routes = [];
+    notFoundCallback = () => {};
+
+    addRoute(url, callback) {
+        this.routes.push({
+            url,
+            callback,
+        });
+        // 체이닝을 사용하기 위한 return
+        return this;
+    }
+
+    // 추가한 router가 맞는지 확인
+    checkRoute() {
+        const currentRoute = this.routes.find(
+            // 현재 주소창 hash 값과 route.url값을 대조하여 route를 return
+            (route) => route.url === window.location.hash
+        );
+
+        if (!currentRoute) {
+            this.notFoundCallback;
+            return;
+        }
+
+        currentRoute.callback();
+    }
+
+    init() {
+        window.addEventListener("hashchange", this.checkRoute.bind(this));
+        if (!window.location.hash) {
+            window.location.hash = "#/";
+        }
+        this.checkRoute();
+    }
+
+    setNotFound(callback) {
+        this.notFoundCallback = callback;
+        return this;
+    }
+}
+
 class TodoList {
     constructor() {
         this.assignElement();
@@ -40,7 +83,7 @@ class TodoList {
 
     onClickRadioBtn(event) {
         const { value } = event.target;
-        this.filterTodo(value);
+        window.location.href = `#/${value.toLowerCase()}`;
     }
 
     filterTodo(status) {
@@ -166,5 +209,18 @@ class TodoList {
 
 // document에 DOM이 다 로드된 다음에 인스턴스 생성
 document.addEventListener("DOMContentLoaded", () => {
+    const router = new Router();
     const todoList = new TodoList();
+    const routerCallback = (status) => () => {
+        todoList.filterTodo(status);
+        document.querySelector(
+            `input[type="radio"][value="${status}"]`
+        ).checked = true;
+    };
+    router
+        .addRoute("#/all", routerCallback("ALL"))
+        .addRoute("#/todo", routerCallback("TODO"))
+        .addRoute("#/done", routerCallback("DONE"))
+        .setNotFound(routerCallback("ALL"))
+        .init();
 });
