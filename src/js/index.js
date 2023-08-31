@@ -89,6 +89,16 @@ class Storage {
 }
 
 class TodoList {
+    storage;
+    inputContainerEl;
+    inputAreaEl;
+    todoInputEl;
+    addBtnEl;
+    todoContainerEl;
+    todoListEl;
+    radioAreaEl;
+    filterRadioBtnEls;
+
     constructor(storage) {
         this.initStorage(storage);
         this.assignElement();
